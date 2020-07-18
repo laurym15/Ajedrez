@@ -42,21 +42,22 @@
             android:id="@+id/acpetar"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
             android:backgroundTint="#0097A7"
+            android:cropToPadding="false"
             android:padding="16dp"
             android:paddingRight="20dp"
-            app:srcCompat="@android:drawable/ic_lock_idle_alarm"
-            android:layout_alignParentLeft="true"
-            />
+            android:scaleType="centerInside"
+            app:srcCompat="@android:drawable/checkbox_on_background" />
 
         <Button
             android:id="@+id/cancelar"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:backgroundTint="#C2185B"
-            android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
-            android:text="1"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:backgroundTint="#88C2185B"
+            android:drawableLeft="@android:drawable/ic_delete"
+            android:text="1" />
 
     </RelativeLayout>
 
