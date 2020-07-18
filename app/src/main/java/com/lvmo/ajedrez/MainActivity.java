@@ -1,8 +1,5 @@
 package com.lvmo.ajedrez;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);*/
                 }else{
                     onDestroy();
-                };
+                }
                 countDownTimerDial.cancel();
                 dialog.dismiss();
             }
@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager= (NotificationManager) getSystemService(MainActivity.NOTIFICATION_SERVICE);
         notificationManager.notify(Constantes.EXTRA_NOTIFICACION_ID,mBuilder.build());
     }
+
+
     public void onBackPressed() {
         if(contSalir==0){
             Toast.makeText(MainActivity.this, getString(R.string.TpresioneSalir),Toast.LENGTH_SHORT).show();

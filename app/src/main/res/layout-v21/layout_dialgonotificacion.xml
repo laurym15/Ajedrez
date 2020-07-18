@@ -9,11 +9,11 @@
         android:id="@+id/tvTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0288D1"
+        android:background="#FFD54F"
         android:gravity="center"
         android:text="@string/noti_Titulo"
         android:textSize="30sp"
-        android:textColor="#FBC02D" />
+        android:textColor="#D84315" />
 
     <TextView
         android:id="@+id/tvCuerpo"
@@ -43,7 +43,7 @@
             android:id="@+id/acpetar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:backgroundTint="#0097A7"
             android:cropToPadding="false"
@@ -57,7 +57,7 @@
             android:id="@+id/cancelar"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#88C2185B"
             android:drawableLeft="@android:drawable/ic_delete"
