@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Ajedrez</string>
+
+    <!-- MAinActivity -->
+    <string name="TpresioneSalir">"Presion otra vez para salir."</string>
+    <string name="TComienzaJu">"Cargando partida"</string>
+    <string name="noti_Cuerpo">te esperan</string>
+    <string name="noti_Titulo">tienes una partida pendiente</string>
+
 </resources>

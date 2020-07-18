@@ -42,7 +42,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="40dp"
         android:contentDescription="@string/app_name"
-        android:text="cerrar   "
+        android:text="cerrar"
         android:textColor="#ff4422"
         app:rippleColor="#FF3D00"
         app:iconGravity="start"

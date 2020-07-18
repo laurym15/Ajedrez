@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0288D1"
+        android:gravity="center"
+        android:text="@string/noti_Titulo"
+        android:textSize="30sp"
+        android:textColor="#FBC02D" />
+
+    <TextView
+        android:id="@+id/tvCuerpo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/noti_Cuerpo"
+        android:textColor="#0097A7"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/ivEntrar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/acpetar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:backgroundTint="#0097A7"
+            android:padding="16dp"
+            android:paddingRight="20dp"
+            app:srcCompat="@android:drawable/ic_lock_idle_alarm"
+            android:layout_alignParentLeft="true"
+            />
+
+        <Button
+            android:id="@+id/cancelar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:backgroundTint="#C2185B"
+            android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
+            android:text="1"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>
