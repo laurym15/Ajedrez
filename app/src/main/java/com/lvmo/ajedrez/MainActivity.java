@@ -3,6 +3,13 @@ package com.lvmo.ajedrez;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -108,7 +115,32 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         }.start();
+    }
 
+    private void crearNotificacionInterna(String jugadaId) {
+        Notification.Builder mBuilder = new Notification.Builder(MainActivity.this)
+                .setContentTitle("Tienes una partida pendiente")
+                .setContentText("Apresurate, te esperan")
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setLights(Color.CYAN,1,0)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setOngoing(false);//sirve para canerla solo cuando netras a laplaicacion.
+        // .setLargeIcon(R.drawable.tocate)
+
+        Intent i= new Intent(MainActivity.this, FindGameActivity.class);
+        i.putExtra(Constantes.EXTRA_TIPO_PARTIDA,"pinvDirecta");
+        i.putExtra(Constantes.EXTRA_JUGADA_ID,jugadaId);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(MainActivity.this);
+        stackBuilder.addParentStack(FindGameActivity.class);
+        stackBuilder.addNextIntent(i);
+
+        PendingIntent pendingIntet =stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pendingIntet);
+
+        NotificationManager notificationManager= (NotificationManager) getSystemService(MainActivity.NOTIFICATION_SERVICE);
+        notificationManager.notify(Constantes.EXTRA_NOTIFICACION_ID,mBuilder.build());
     }
     public void onBackPressed() {
         if(contSalir==0){
@@ -133,5 +165,11 @@ public class MainActivity extends AppCompatActivity {
                 contSalir=0;
             }
         }.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        crearNotificacionInterna("funcionafunciona");
     }
 }
