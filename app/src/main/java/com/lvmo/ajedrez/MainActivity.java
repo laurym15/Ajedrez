@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.lvmo.ajedrez.myapp.Constantes;
 
 public class MainActivity extends AppCompatActivity {
     CountDownTimer countDownTimerDial;

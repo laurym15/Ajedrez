@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.lvmo.ajedrez.myapp.Constantes;
+
 public class FindGameActivity extends AppCompatActivity {
 
     @Override
