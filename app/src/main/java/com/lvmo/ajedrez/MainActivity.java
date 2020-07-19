@@ -20,15 +20,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.lvmo.ajedrez.myapp.Constantes;
 
 public class MainActivity extends AppCompatActivity {
-    CountDownTimer countDownTimerDial;
-    static long millisecondsleft;
-    CountDownTimer countDownTimerSalir;
-    int contSalir=0;
-    String tiponoti="";
-
+    private CountDownTimer countDownTimerDial;
+    private static long millisecondsleft;
+    private CountDownTimer countDownTimerSalir;
+    private int contSalir=0;
+    private String tiponoti="notifica";
+    private FirebaseAuth firebaseAuth;
     ExtendedFloatingActionButton fab,fab1;
 
     @Override
@@ -36,26 +37,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fab=findViewById(R.id.extended_fab);
-        fab1=findViewById(R.id.extended_fab1);
-        fab.shrink();
-        fab1.shrink();
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getUid()==null)
+        { Intent i= new Intent(MainActivity.this, PerfilUsuarioActivity.class);
+        i.putExtra(Constantes.EXTRA_VER_PERFIL,"crear");
+        startActivity(i);
+        }else {
 
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ExtendedFloatingActionButton extFab =(ExtendedFloatingActionButton)v;
-                if(extFab.isExtended())
-                {
-                    extFab.shrink();
-                }else
-                {extFab.extend();
-                    dialogo_NotificacionJugada();
+            fab = findViewById(R.id.extended_fab);
+            fab1 = findViewById(R.id.extended_fab1);
+            fab.shrink();
+            fab1.shrink();
+
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ExtendedFloatingActionButton extFab = (ExtendedFloatingActionButton) v;
+                    if (extFab.isExtended()) {
+                        extFab.shrink();
+                    } else {
+                        extFab.extend();
+                        dialogo_NotificacionJugada();
+                    }
                 }
-            }
-        };
-        fab.setOnClickListener(clickListener);
-        fab1.setOnClickListener(clickListener);
+            };
+            fab.setOnClickListener(clickListener);
+            fab1.setOnClickListener(clickListener);
+        }
     }
 
     private void dialogo_NotificacionJugada() {
@@ -79,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(tiponoti.equals("notifica"))  {
                     Toast.makeText(getApplicationContext(), R.string.TComienzaJu, Toast.LENGTH_LONG).show();
+                    Intent i= new Intent(MainActivity.this, PerfilUsuarioActivity.class);
+                    i.putExtra(Constantes.EXTRA_VER_PERFIL,"ver");
+                    startActivity(i);
                    /* Intent i= new Intent(TransisionActivity.this, FindGameActivity.class);
                     i.putExtra(Constantes.EXTRA_TIPO_PARTIDA,"pinvDirecta");
                     i.putExtra(Constantes.EXTRA_JUGADA_ID,jugadaId);
                     startActivity(i);*/
-                }else{
-                    onDestroy();
                 }
                 countDownTimerDial.cancel();
                 dialog.dismiss();

@@ -1,10 +1,18 @@
 package com.lvmo.ajedrez.myapp;
 
+import java.util.Date;
+
 public class jugada {
 
     public jugada(String jBlancasId, String invitacionId) {
         this.jBlancasId = jBlancasId;
         this.invitacionId = invitacionId;
+        this.jNegrasId="";
+        this.fecha = new Date();
+        this.turno="blancas";
+        this.abandonoId="";
+        this.ganadorId="";
+        this.movimientos=this.fecha.toString()+jBlancasId;
     }
 
     private String jBlancasId;
@@ -13,6 +21,8 @@ public class jugada {
     private String ganadorId;
     private String abandonoId;
     private String movimientos;
+    private String turno;
+    private Date fecha;
 
     public String getInvitacionId() {
         return invitacionId;
@@ -61,5 +71,13 @@ public class jugada {
     public void setMovimientos(String movimientos) {
         this.movimientos = movimientos;
     }
+
+    public Date getFecha() {return fecha;}
+
+    public void setFecha(Date fecha) {this.fecha = fecha;}
+
+    public String getTurno() {return turno;}
+
+    public void setTurno(String turno) {this.turno = turno; }
 
 }

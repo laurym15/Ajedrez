@@ -7,4 +7,9 @@
     <string name="noti_Cuerpo">te esperan</string>
     <string name="noti_Titulo">tienes una partida pendiente</string>
 
+    <!-- PerfilUsuarioActivity -->
+    <string name="TfalloLawea">"Fallo la Weaa"</string>
+    <string name="TususarioCreado">"Usuario creado correctamente"</string>
+    <string name="TBienvenido">"Bienvenido "</string>
+
 </resources>

@@ -2,22 +2,23 @@ package com.lvmo.ajedrez.myapp;
 
 public class tipoUsuario {
     public tipoUsuario(String usuarioId) {
-        this.nombre = "juagador"+usuarioId;
+        this.name = "juagador"+usuarioId;
         this.UsuarioId = usuarioId;
-        this.puntosTotales = 0;
+        this.points = 0;
         this.onLine="on";
+        this.usuarioVerificado="no";
     }
 
-    private String nombre;
+    private String name;
     private String UsuarioId;
     private String onLine;
+    private String usuarioVerificado;
+    private int points;
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return name;    }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.name = nombre;
     }
 
     public String getUsuarioId() {
@@ -37,13 +38,14 @@ public class tipoUsuario {
     }
 
     public int getPuntosTotales() {
-        return puntosTotales;
+        return points;
     }
 
     public void setPuntosTotales(int puntosTotales) {
-        this.puntosTotales = puntosTotales;
+        this.points = puntosTotales;
     }
 
-    private int puntosTotales;
+    public String getUsuarioVerificado() { return usuarioVerificado; }
 
+    public void setUsuarioVerificado(String usuarioVerificado) {        this.usuarioVerificado = usuarioVerificado; }
 }
