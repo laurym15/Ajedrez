@@ -6,10 +6,13 @@
     <string name="TComienzaJu">"Cargando partida"</string>
     <string name="noti_Cuerpo">te esperan</string>
     <string name="noti_Titulo">tienes una partida pendiente</string>
+   <string name="TvamosRanking">"Vamos al ranking"</string>
 
     <!-- PerfilUsuarioActivity -->
     <string name="TfalloLawea">"Fallo la Weaa"</string>
     <string name="TususarioCreado">"Usuario creado correctamente"</string>
     <string name="TBienvenido">"Bienvenido "</string>
 
+    <!-- RankingActivity -->
+    <string name="SetRanking"> Los ganadores</string>
 </resources>

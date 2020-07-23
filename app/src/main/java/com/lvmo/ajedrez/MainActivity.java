@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.lvmo.ajedrez.myapp.Constantes;
+import com.lvmo.ajedrez.perfilusuario.PerfilUsuarioActivity;
+import com.lvmo.ajedrez.perfilusuario.RankingActivity;
 
 public class MainActivity extends AppCompatActivity {
     private CountDownTimer countDownTimerDial;
@@ -105,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(tiponoti.equals("notifica"))  {
                   //  cancelarJugada();
+                    Toast.makeText(getApplicationContext(), R.string.TvamosRanking, Toast.LENGTH_LONG).show();
+                    Intent i= new Intent(MainActivity.this, RankingActivity.class);
+                    startActivity(i);
                 }
                 countDownTimerDial.cancel();
                 dialog.dismiss();

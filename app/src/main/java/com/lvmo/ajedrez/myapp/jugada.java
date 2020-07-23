@@ -13,6 +13,9 @@ public class jugada {
         this.abandonoId="";
         this.ganadorId="";
         this.movimientos=this.fecha.toString()+jBlancasId;
+        this.pBlancas=0;
+        this.pNegras=0;
+
     }
 
     private String jBlancasId;
@@ -23,6 +26,8 @@ public class jugada {
     private String movimientos;
     private String turno;
     private Date fecha;
+    private int pBlancas;
+    private int pNegras;
 
     public String getInvitacionId() {
         return invitacionId;
@@ -79,5 +84,13 @@ public class jugada {
     public String getTurno() {return turno;}
 
     public void setTurno(String turno) {this.turno = turno; }
+
+    public int getpBlancas() { return pBlancas;    }
+
+    public void setpBlancas(int pBlancas) {this.pBlancas = pBlancas;    }
+
+    public int getpNegras() {return pNegras;  }
+
+    public void setpNegras(int pNegras) {  this.pNegras = pNegras;    }
 
 }

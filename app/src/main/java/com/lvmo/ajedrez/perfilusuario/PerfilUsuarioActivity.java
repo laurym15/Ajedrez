@@ -1,10 +1,12 @@
-package com.lvmo.ajedrez;
+package com.lvmo.ajedrez.perfilusuario;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,6 +27,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
+import com.lvmo.ajedrez.MainActivity;
+import com.lvmo.ajedrez.R;
 import com.lvmo.ajedrez.myapp.Constantes;
 import com.lvmo.ajedrez.myapp.tipoUsuario;
 
@@ -40,6 +44,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
     private User userjUno;
     Button btSalir,btCpermanete;
     TextView tvnombre,tvpuntos;
+    CheckBox checkBox;
+    EditText actNombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         tvnombre=findViewById(R.id.tvNombre);
         tvpuntos=findViewById(R.id.tvpuntos);
+        checkBox= findViewById(R.id.checkBox);
+        actNombre=findViewById(R.id.editTextTextPersonName);
 
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -65,7 +73,13 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         if(i!=null) {
+            uid=firebaseAuth.getUid();
             verPerfil = i.getStringExtra(Constantes.EXTRA_VER_PERFIL);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.content_jugada, new JugadasFragment())
+                    .commit();
+
         }
 
     }
@@ -93,7 +107,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
     private void actilizarDB(FirebaseUser user) {
         String uid= user.getUid();
-        tipoUsuario nuevoUsuario= new tipoUsuario("uid");
+        tipoUsuario nuevoUsuario= new tipoUsuario(0,"",uid,"on","no");
         db.collection("users")
                 .document(uid)
                 .set(nuevoUsuario)
@@ -115,13 +129,16 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         updateUI(currentUser);
-        actulizarDBuser("onLine","on");
+        if(uid!=null){
+        actulizarDBuser("onLine","on");}
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        actulizarDBuser("onLine","off");
+        if(uid!=null){
+
+            actulizarDBuser("onLine","off");}
     }
 
     private void updateUI(final FirebaseUser user) {
@@ -138,23 +155,42 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
                 eventoClic();
             }
         } else {
-          //  changeLoginFormVisibility(true);
+            changeMenuVisibility(true);
             craerUsuario();
         }
     }
 
     private void eventoClic() {
         changeMenuVisibility(true);
-        uid= firebaseAuth.getUid();
-        if(uid!=null)
-        {
+
             getnombrePuntos(uid);
-        }
+        checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (checkBox.isChecked()) {
+                        checkBox.setChecked(false);
+
+                        actulizarDBuser("name", actNombre.getText().toString());
+                        getnombrePuntos(uid);
+                        Toast.makeText(getApplicationContext(), "nombre actulizado", Toast.LENGTH_LONG).show();
+
+                    }}
+            });
+
 
         btSalir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
+                db.collection("users")
+                        .document(uid)
+                        .delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                             //   Toast.makeText(getApplicationContext(),"se borraron tus datos", Toast.LENGTH_LONG).show();
+                            }
+                        });
             }
         });
 
