@@ -15,4 +15,5 @@
 
     <!-- RankingActivity -->
     <string name="SetRanking"> Los ganadores</string>
+    <string name="Ranking"> Ver Ranking</string>
 </resources>

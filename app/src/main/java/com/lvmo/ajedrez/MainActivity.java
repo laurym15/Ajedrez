@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,8 +20,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.lvmo.ajedrez.myapp.Constantes;
 import com.lvmo.ajedrez.perfilusuario.PerfilUsuarioActivity;
 import com.lvmo.ajedrez.perfilusuario.RankingActivity;
@@ -33,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
     private String tiponoti="notifica";
     private FirebaseAuth firebaseAuth;
     ExtendedFloatingActionButton fab,fab1;
+    private String uid, nombreJuno = "", jugadorDosId, nombreJdos = "";
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = FirebaseFirestore.getInstance();
 
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getUid()==null)
@@ -59,16 +67,37 @@ public class MainActivity extends AppCompatActivity {
                         extFab.shrink();
                     } else {
                         extFab.extend();
-                        dialogo_NotificacionJugada();
+                        jugadorDosId="sIqwR6XmsIZ4ymPyepQhuq42Pls2";
+                        db.collection("users")
+                                .document(jugadorDosId)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        nombreJdos = documentSnapshot.get("name").toString();
+                                        sonidoNoti();
+                                        dialogo_NotificacionJugada();
+                                    } });
                     }
                 }
             };
             fab.setOnClickListener(clickListener);
             fab1.setOnClickListener(clickListener);
         }
-    }
 
+        eventoClic();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.content_usuario_online, new UserOnlineFragment() )
+                .commit();
+    }
+    private void sonidoNoti(){
+        MediaPlayer mediaPlayer=MediaPlayer.create(this,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        mediaPlayer.start();
+    }
     private void dialogo_NotificacionJugada() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         LayoutInflater inflater = getLayoutInflater();
 
@@ -80,9 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tvTitulo = view.findViewById(R.id.tvTitulo);
         TextView tvcuerpo = view.findViewById(R.id.tvCuerpo);
-        tvcuerpo.setText(getString(R.string.noti_Cuerpo));
+        tvcuerpo.setText(nombreJdos+","+getString(R.string.noti_Cuerpo));
         tvTitulo.setText(getString(R.string.noti_Titulo));
-
         ImageButton aceptar = view.findViewById(R.id.acpetar);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,9 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(tiponoti.equals("notifica"))  {
                   //  cancelarJugada();
-                    Toast.makeText(getApplicationContext(), R.string.TvamosRanking, Toast.LENGTH_LONG).show();
-                    Intent i= new Intent(MainActivity.this, RankingActivity.class);
-                    startActivity(i);
+
                 }
                 countDownTimerDial.cancel();
                 dialog.dismiss();
@@ -130,6 +156,18 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         }.start();
+    }
+
+    private void eventoClic() {
+         Button btRanking = findViewById(R.id.bRanking);
+        btRanking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), R.string.TvamosRanking, Toast.LENGTH_LONG).show();
+                Intent i= new Intent(MainActivity.this, RankingActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void crearNotificacionInterna(String jugadaId) {
